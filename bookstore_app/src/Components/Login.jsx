@@ -1,14 +1,17 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import style from './Css/Login.module.css'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { AuthContext } from '../ContextApi/AuthContext';
 export const Login = () => {
   const [state, setState] = useState({
     email:'',
     password:''
   });
+
+  let {auth,setAuth,handelAuth,name,setToken,token}=useContext(AuthContext)
 
   const nav = useNavigate();
 
@@ -21,13 +24,16 @@ export const Login = () => {
    .post('http://127.0.0.1:5000/book/login', state)
    .then((res) => {
      console.log(res);
+     handelAuth(true)
+     name.current=res.data.name
+     setToken(res.data.token)
      toast.success(`Logged In Successfully, Welcome`);
      setTimeout(()=>{
        nav('/bookStore');
      },6000)
      
    })
-   .catch((err) => console.log(err));
+   .catch((err) => toast.error('Please Provide Valid Credentials!'));
   }
   
 

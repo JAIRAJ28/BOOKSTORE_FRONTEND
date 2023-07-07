@@ -7,11 +7,13 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from './ContextApi/AuthContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter>
   <AuthContextProvider>
+  <BrowserRouter>
+  
     <App />
-  </AuthContextProvider>
+  
   </BrowserRouter>
+  </AuthContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
