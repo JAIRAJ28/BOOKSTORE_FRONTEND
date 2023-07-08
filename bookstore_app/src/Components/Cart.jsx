@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import style from "./Css/Cart.module.css";
 import { MdOutlineDeleteOutline } from "react-icons/md";
-
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import { AuthContext } from '../ContextApi/AuthContext';
+import axios from 'axios';
 export const Cart = () => {
   const [orders, setOrders] = useState([]);
   const [name, setName] = useState("");
@@ -40,19 +43,30 @@ export const Cart = () => {
   const handlePaymentModeChange = (e) => {
     setPaymentMode(e.target.value);
   };
-
-  const handlePayButton = () => {
-    if (paymentMode === "credit" || paymentMode === "debit") {
-      
-      console.log("Card Number:", cardNumber);
+  const handlePayButton = (e) => {
+    localStorage.setItem('orders_placed', JSON.stringify(orders));
+    e.preventDefault()
+    axios.post(`http://127.0.0.1:5000/orders`,{
+       orders
+    }).then((res)=>{console.log(res)
+      if (paymentMode === "credit" || paymentMode === "debit") {
+        toast.success("Payment Processed, Thank You For Placing your Order")
     } else {
-
-      console.log("Payment processed without card details");
+      toast.success("Order Has Been SuccessFully Placed By Card");
+    }
+    })
+    .catch((err)=>console.log(err))
+    if(orders){
+      toast.success("Thank You For Placing your Order")
+    }else{
+      toast.error("Please add Something to the cart")
     }
   };
 
+
   return (
     <div className="flexbox">
+       <ToastContainer position="bottom-center" />
       <h2 className={style.header}>
         Your Cart - {orders.length}
       </h2>
@@ -119,19 +133,19 @@ export const Cart = () => {
       <div className={style.checkoutBox}>
         <h3>Checkout</h3>
         <div className={style.checkoutForm}>
-          <form action="" style={{marginTop:"-20px"}}>
+          <form action="" style={{marginTop:"-20px"}} onSubmit={handlePayButton}>
           <label htmlFor="name">Name:</label>
-          <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} />
+          <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
 
           <label htmlFor="address">Address:</label>
-          <input type="text" id="address" value={address} onChange={(e) => setAddress(e.target.value)} />
+          <input type="text" id="address" value={address} onChange={(e) => setAddress(e.target.value)} required />
 
           <label htmlFor="pinCode">Pin Code:</label>
-          <input type="text" id="pinCode" value={pinCode} onChange={(e) => setPinCode(e.target.value)} />
+          <input type="text" id="pinCode" value={pinCode} onChange={(e) => setPinCode(e.target.value)} required />
 
           <label htmlFor="paymentMode">Payment Mode:</label>
-          <select id="paymentMode" value={paymentMode} onChange={handlePaymentModeChange}>
-            <option value="credit">Credit Card</option>
+          <select id="paymentMode" value={paymentMode} onChange={handlePaymentModeChange} required>
+            <option value="credit">Payment Mode</option>
             <option value="credit">Credit Card</option>
             <option value="debit">Debit Card</option>
             <option value="direct">Direct Pay</option>
@@ -141,8 +155,10 @@ export const Cart = () => {
             <>
               <label htmlFor="cardNumber">Card Number:</label>
               <input
-                type="text"
+                type="number"
                 id="cardNumber"
+                maxLength={12}
+                required
                 value={cardNumber}
                 onChange={(e) => setCardNumber(e.target.value)}
               />
