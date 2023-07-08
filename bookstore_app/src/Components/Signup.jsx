@@ -30,7 +30,7 @@ export const Signup = () => {
         },6000)
         
       })
-      .catch((err) => console.log(err));
+      .catch((err) => toast.error(err.message));
   };
 
   return (

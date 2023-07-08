@@ -1,0 +1,7 @@
+-----Pagination in the backend and implement in the frontEnd
+
+
+-----Remove localStorage and Play with the Routes --- Add some extra Routes as per the same
+
+-----Forming Relationships accordingly as per the user 
+

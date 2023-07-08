@@ -4,7 +4,20 @@ import { useContext } from 'react'
 import { AuthContext } from '../ContextApi/AuthContext'
 import style from './Css/BookStore.module.css'
 import { useNavigate } from 'react-router-dom'
+
+
+
+// if(localStorage.getItem('orders').length===0){
+//   while(ordres.length>0){
+//     ordres.pop()
+//   }
+// }
+
+
+
+
 export const BookStore = () => {
+  let ordres=JSON.parse(localStorage.getItem('orders'))||[]
   let [data,setData]=useState([])
   let [loading,setLoading]=useState(false)
   let [field,setfield]=useState("")
@@ -16,7 +29,7 @@ export const BookStore = () => {
    
   },[query,field])
 
-
+  
   // console.log(state,setState,handelAuth,name)
   // function getchBook(){
   //  axios.get(`http://127.0.0.1:5000/book`)
@@ -72,6 +85,11 @@ export const BookStore = () => {
         <div style={{color:"gray"}}>
          {item.description}
          <button 
+         onClick={()=>{
+          ordres.push({...item,quantity:1})
+          console.log(ordres)
+          localStorage.setItem('orders',JSON.stringify(ordres))
+         }}
          style={{padding:"10px 20px",borderRadius:"20px", border:"none",fontWeight:"600",cursor:"pointer"}}
          >BUY ME</button>
          </div>

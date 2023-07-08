@@ -1,0 +1,113 @@
+.header{
+    color: aqua;
+}
+
+/* Cart.module.css */
+
+.container {
+   
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+   
+  }
+  /* .flexbox{
+    display:flex;
+    flex:1
+  } */
+  .header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .cartItems {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 20px;
+    width: 100%;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th,
+  td {
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    font-weight: bold;
+  }
+
+
+  .checkoutBox {
+    background: tan transparent;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 60%;
+  }
+
+  .checkoutForm {
+    display: grid;
+    grid-gap: 10px;
+  }
+  
+  .checkoutForm label {
+    font-weight: bold;
+  }
+  
+  .checkoutForm input,
+  .checkoutForm select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .payButton {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  
+  .itemImage {
+    width: 100px;
+    height: auto;
+  }
+  
+  .itemDetails p {
+    margin: 5px 0;
+  }
+  
+  .deleteIcon {
+    color: #ff0000;
+    cursor: pointer;
+  }
+  
+  .quantitySelect {
+    width: 60px;
+  }
+  
+  /* Optional: Styling for select dropdown */
+  select {
+    appearance: none;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  select:focus {
+    outline: none;
+    border-color: #888;
+  }
+
+  
